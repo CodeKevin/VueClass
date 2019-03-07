@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="../lib/animate.css">
+    <title>Document</title>
+    <style>
+        /* enter 进入之前 */
+        /* enter active  入场 */
+        /* leave active 出场 */
+        /* leave to 结束 */
+        .v-enter-active,.v-leave-active {
+            transition: all .8s ease;
+        }
+        .v-enter,.v-leave-to {
+            opacity: 0;
+        }
+        .main {
+            background-color: #f7f1f1c5;
+            height: 500px;
+        }
+        .head {
+            background-color: steelblue;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .avatar {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: snow;
+        }
+        .btn {
+            position: absolute;
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id='app'>
+        <div class="head">
+            <div class="avatar"></div>
+            <el-button class="btn" type="primary" @click="flag = !flag">Start</el-button>
+        </div>
+        <div class="main">
+                <transition enter-active-class="bounceIn" leave-active-class="bounceOut">
+                        <h3  v-if="flag" style="margin: 0px;">Animate CSS</h3>
+                </transition>
+                <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOutDownBig">
+                        <h3  v-if="flag" style="margin: 0px;">Animate CSS</h3>
+                </transition>
+        </div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg:"Hello,Boy!",
+                flag: false
+            },
+            methods: {
+                
+            },
+            created() {
+                
+            },
+        })
+    </script>
+</body>
+</html>

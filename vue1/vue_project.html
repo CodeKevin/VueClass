@@ -92,12 +92,19 @@
             ]
         },
         created() {
-            console.log(this.list)
+            this.get_list()
         },
         mounted() {
             
         },
         methods: {
+            get_list(){
+                axios.get('http://127.0.0.1:3000/getscript?callback=showInfo').then(function (response) {
+                console.log(response);
+                }).catch(function (error) {
+                console.log(error);
+                })
+            },
             add(){
                 if(this.id == '' || this.name == '') return
                 item = {id:this.id,name:this.name,time:new Date()}

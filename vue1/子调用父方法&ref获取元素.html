@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id='app'>
+        
+        <div>{{msg}}</div>
+        <input type="button" value="Post" @click="getEle">
+        <h3 id="myh3" ref="myh3">Hello</h3>
+        <com-box ref="tmp1" @func="show"></com-box>
+        <ul>
+            <li v-for="(item, index) in list" :key="item.id">{{item.content}}---{{item.name}}</li>
+        </ul>
+    </div>
+    <template id="tmp1">
+        <div>
+                <div>
+                        <label>name: <input type="text" v-model="name"></label>
+                    </div>
+                    <div>
+                            <label>content: <input type="text" v-model="content"></label>
+                    </div>
+                    <div>
+                        <input type="button" value="Post" @click="postComment">
+                    </div>
+        </div>
+    </template>
+    <script>
+        let comBox = {
+            template: '#tmp1',
+            data() {
+                return {
+                    name:'',
+                    content:'',
+                    message:"Hello"
+                }
+            },
+            methods:{
+                postComment(){
+                    if(this.name == '' || this.content == '') {
+                        alert("!!!")
+                        return
+                    }
+                    let item = {name:this.name,content:this.content}
+                    var list = JSON.parse(localStorage.getItem('cmts') || "[]")
+                    list.push(item)
+                    localStorage.setItem('cmts',JSON.stringify(list))
+                    this.name = ''
+                    this.content = ''
+                    this.$emit("func")
+                }
+            }
+        }
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg:"Hello,Boy!",
+                list:[]
+            },
+            components:{
+                'com-box':comBox
+            },
+            methods: {
+                getEle() {
+                    console.log(this.$refs.myh3.innerText)
+                    console.log(this.$refs.tmp1.message)
+                },
+                show(){
+                    //
+                    var list = JSON.parse(localStorage.getItem('cmts') || "[]")
+                    this.list = list
+                }
+            },
+            created() {
+                console.log("created")
+                this.show()
+            },
+        })
+    </script>
+</body>
+</html>

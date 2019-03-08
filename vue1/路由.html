@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+        <!-- 引入路由模块 -->
+     <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+     <style>
+            .router-link-active{
+                color:red;
+                font-size: 50px;
+                font-style: italic;
+                text-decoration: underline;
+                background: green;
+                /* 红配绿 */
+            }
+            /* 动画 */
+            .v-enter,
+            .v-leave-to{
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            .v-enter-active,
+            .v-leave-active{
+                transition: all .5s ease;
+            }
+        </style>
+
+</head>
+<body>
+    <div id="app">
+        <div>
+            <a href="#login">login</a> |
+            <a href="#register">register</a>
+            <hr>
+            <router-link to="login" tag="span">login</router-link> |
+            <router-link to="register">register</router-link>
+            <transition mode="out-in">
+                    <router-view></router-view>
+                </transition>
+        </div>
+        
+    </div>
+    <template id="login">
+        <h3>login</h3>
+    </template>
+    <template id="register">
+            <h3>register</h3>
+    </template>
+</body>
+<script>
+    let login = {
+        template:'#login'
+    }
+    let register = {
+        template:'#register'
+    }
+   let routerObj = new VueRouter({
+       routes: [
+           {path:'/',redirect:'/login'},
+           {path:'/login',component:login},
+           {path:'/register',component:register},
+       ],
+       linkActiveClass:'router-link-active'
+   })
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            msg:"world",
+        },
+        methods: {
+        },
+        components:{
+            login,
+            register
+        },
+        router:routerObj
+    })
+</script>
+</html>

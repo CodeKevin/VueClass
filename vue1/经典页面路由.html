@@ -12,21 +12,34 @@
                 margin:0;
                 padding: 0;
             }
+            .container {
+                display: flex;
+                height: 92vh;
+            }
             .header{
                 background: red;
-                height: 100px;
-            }
-            .container{
-                display:flex;
-                height: 500px;
+                height: 8vh;
+                min-height: 50px;
             }
             .left{
                 background: lightblue;
-                flex:2;
+                flex:1;
             }
             .main{
                 background: lightsalmon;
-                flex:8;
+                flex:4; 
+            }
+            h3 {
+                text-align: center;
+            }
+            ul {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            li {
+                border:black;
+                border-width: 1px;
+                height: 90px;
             }
         </style>
     </head>
@@ -35,21 +48,25 @@
             <router-view></router-view>
             <div class="container">
                 <router-view name="left"></router-view>
-                <router-view name="main"></router-view>
+                <router-view name="main">
+                </router-view>
             </div>
-           
         </div>
-    
+        <template id="main">
+            <div class="main">
+                <h3>mainBox主体区域</h3>
+            </div>
+        </template>
     </body>
-    <script>
+    <script> 
         let header = {
-            template:"<h1 class='header'>Header头部区域</h1>"
+            template:"<h3 class='header'>Header头部区域</h3>"
         }
         let leftBox = {
-            template:"<h1 class='left'>leftBox侧边栏区域</h1>"
+            template:"<h3 class='left'>leftBox侧边栏区域</h3>"
         }
         let mainBox = {
-            template:"<h1 class='main'>MainBox主体区域</h1>"
+            template:'#main'
         }
         let router = new VueRouter({
             routes:[
